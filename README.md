@@ -5,18 +5,18 @@ to what I need.
 
 ## Basic Structures
 - ArrayList &#287
-	- Doubly Linked List (Not Implemented Yet)
-	- Stack (Not Implemented Yet)
-	- Queue (Not Implemented Yet)
-	- Array Based Binary Tree (Not Implemented Yet)
-	- Node Based Binary Tree (Not Implemented Yet)
+- Doubly Linked List (Not Implemented Yet)
+- Stack (Not Implemented Yet)
+- Queue (Not Implemented Yet)
+- Array Based Binary Tree (Not Implemented Yet)
+- Node Based Binary Tree (Not Implemented Yet)
 	
 	
 ## Key-Value Structures
-	- Priority Queue (Not Implemented Yet)
-	- Heap (Not Implemented Yet)
-	- Unsorted Map (Not Implemented Yet)
-	- Hash Table (Not Implemented Yet)
-	- Dictionary (Not Implemented Yet)
-	- Binary Search Tree (Not Implemented Yet)
-	- AVL Tree (Not Implemented Yet)
+- Priority Queue (Not Implemented Yet)
+- Heap (Not Implemented Yet)
+- Unsorted Map (Not Implemented Yet)
+- Hash Table (Not Implemented Yet)
+- Dictionary (Not Implemented Yet)
+- Binary Search Tree (Not Implemented Yet)
+- AVL Tree (Not Implemented Yet)
