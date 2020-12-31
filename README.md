@@ -5,18 +5,18 @@ to what I need.
 
 ## Basic Structures
 - ArrayList :heavy_check_mark:
-- Doubly Linked List (Not Implemented Yet)
-- Stack (Not Implemented Yet)
-- Queue (Not Implemented Yet)
-- Array Based Binary Tree (Not Implemented Yet)
-- Node Based Binary Tree (Not Implemented Yet)
+- Doubly Linked List :x:
+- Stack :x:
+- Queue :x:
+- Array Based Binary Tree :x:
+- Node Based Binary Tree :x:
 	
 	
 ## Key-Value Structures
-- Priority Queue (Not Implemented Yet)
-- Heap (Not Implemented Yet)
-- Unsorted Map (Not Implemented Yet)
-- Hash Table (Not Implemented Yet)
-- Dictionary (Not Implemented Yet)
-- Binary Search Tree (Not Implemented Yet)
-- AVL Tree (Not Implemented Yet)
+- Priority Queue :x:
+- Heap :x:
+- Unsorted Map :x:
+- Hash Table :x:
+- Dictionary :x:
+- Binary Search Tree :x:
+- AVL Tree :x:
