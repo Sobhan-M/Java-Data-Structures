@@ -4,7 +4,7 @@ I'll be using in the future. That way I won't have to waste time creating and de
 to what I need.
 
 ## Basic Structures
-- ArrayList &#287
+- ArrayList &euro
 - Doubly Linked List (Not Implemented Yet)
 - Stack (Not Implemented Yet)
 - Queue (Not Implemented Yet)
