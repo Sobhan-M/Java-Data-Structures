@@ -3,7 +3,7 @@ package basicstructures;
 /** A resizable array that can access each position in constant time.
  * @author Sobhan Mehrpour
  */
-public class ArrayList <T> {
+public class ArrayList<T> extends Sequence<T> {
 	
 	private boolean shouldDouble;
 	private T[] array;
