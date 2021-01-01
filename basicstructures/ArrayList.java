@@ -73,7 +73,7 @@ public class ArrayList <T> {
 	 */
 	public void addToEnd(T object) {
 		if(object == null)
-			return;
+			throw new IllegalArgumentException("Attempted to add null object to the end of the ArrayList.");
 		
 		increaseCapacity();
 		array[size++] = object;
@@ -84,7 +84,7 @@ public class ArrayList <T> {
 	 */
 	public void addToStart(T object) {
 		if(object == null)
-			return;
+			throw new IllegalArgumentException("Attempted to add null object to the start of the ArrayList.");
 		
 		increaseCapacity();
 		for(int i = size-1 ; i >= 0 ; i--)
@@ -99,11 +99,13 @@ public class ArrayList <T> {
 	 * @param index The index the object is inserted at.
 	 */
 	public void addAtIndex(T object, int index) {
-		if(object == null || index < 0 || index > size)
-			return;
+		if(object == null)
+			throw new IllegalArgumentException("Attempted to add null object to the ArrayList.");
+		if(index < 0 || index > size)
+			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
 		
 		increaseCapacity();
-		for(int i = index ; i < size ; i++)
+		for(int i = size - 1 ; i >= index ; i--)
 			array[i+1] = array[i];
 		
 		array[index] = object;
@@ -135,7 +137,9 @@ public class ArrayList <T> {
 	 * @return The contents of index.
 	 */
 	public T getAtIndex(int index) {
-		if(isEmpty() || index < 0 || index >= size)
+		if(index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
+		if(isEmpty())
 			return null;
 		else
 			return array[index];
@@ -173,7 +177,9 @@ public class ArrayList <T> {
 	 * @return The contents of the index.
 	 */
 	public T removeAtIndex(int index) {
-		if(isEmpty() || index < 0 || index >= size)
+		if(index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
+		if(isEmpty())
 			return null;
 		
 		T temp = getAtIndex(index);
@@ -190,7 +196,11 @@ public class ArrayList <T> {
 	 * @return The original content of the index.
 	 */
 	public T replaceAtIndex(T object, int index) {
-		if(isEmpty() || index < 0 || index >= size || object == null)
+		if(object == null)
+			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
+		if(index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
+		if(isEmpty())
 			return null;
 		
 		T temp = getAtIndex(index);
@@ -288,14 +298,14 @@ public class ArrayList <T> {
 	}
 	
 	/** Scans the entire ArrayList and returns the index of the object if it's found. Returns -1 
-	 * if the object is not found or if the object passed is null.
+	 * if the object is not found.
 	 * @param object The object being searched for.
 	 * @return The index of object.
 	 */
 	public int getIndexOf(T object) {
-		// Return -1 if the object is null.
+		// Throw exception if the object is null.
 		if(object == null)
-			return -1;
+			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
 		
 		// Return the index if a match is found.
 		for(int i = 0 ; i < size ; i++) {
@@ -311,7 +321,11 @@ public class ArrayList <T> {
 	 * @param object The object being searched for.
 	 * @return Returns true if the object is found. Returns false if it is null or has not been found.
 	 */
-	public boolean doesContain(T object) {
+	public boolean contains(T object) {
+		if(object == null)
+			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
+		
 		return getIndexOf(object) != -1;
 	}
+	
 }
