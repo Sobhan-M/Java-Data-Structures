@@ -5,7 +5,8 @@ to what I need.
 
 ## Basic Structures
 - ArrayList :heavy_check_mark:
-- Doubly Linked List :x:
+- Singly Linked List :x:
+- Doubly Linked List :heavy_check_mark:
 - Stack :x:
 - Queue :x:
 - Array Based Binary Tree :x:
