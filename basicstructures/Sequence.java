@@ -4,7 +4,7 @@ package basicstructures;
  * @author Sobhan Mehrpour
  * @param <T>
  */
-public abstract class Sequence<T> {
+public abstract class Sequence<T>  implements Iterable<T>{
 	
 	/** Adds the object to the beginning of the sequence.
 	 * @param object The object being passed.

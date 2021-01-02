@@ -6,7 +6,7 @@ import java.util.Iterator;
  * @author Sobhan Mehrpour
  * @param <T>
  */
-public class DoublyLinkedList<T> extends Sequence<T> implements Iterable<T>{
+public class DoublyLinkedList<T> extends Sequence<T>{
 	// Attributes
 	private int size;
 	private Node head;
@@ -357,18 +357,4 @@ public class DoublyLinkedList<T> extends Sequence<T> implements Iterable<T>{
 		}
 		
 	}
-	
-	public static void main(String[] args) {
-		DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-		list.addToStart(4);
-		list.addToStart(3);
-		list.addToStart(2);
-		list.addToStart(1);
-		System.out.println(list);
-		for(Integer element : list) {
-			System.out.println(element);
-		}
-	}
-
-	
 }

@@ -1,5 +1,7 @@
 package basicstructures;
 
+import java.util.Iterator;
+
 /** A resizable array that can access each position in constant time.
  * @author Sobhan Mehrpour
  */
@@ -319,4 +321,22 @@ public class ArrayList<T> extends Sequence<T> {
 		return getIndexOf(object) != -1;
 	}
 	
+	public Iterator<T> iterator(){
+		Iterator<T> temp = new Iterator<T>() {
+			private int currentIndex = 0;
+
+			@Override
+			public boolean hasNext() {
+				return currentIndex < size;
+			}
+
+			@Override
+			public T next() {
+				return array[currentIndex++];
+			}
+			
+			
+		};
+		return temp;
+	}	
 }
