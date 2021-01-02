@@ -1,10 +1,12 @@
 package basicstructures;
 
+import java.util.Iterator;
+
 /** A doubly linked list.
  * @author Sobhan Mehrpour
  * @param <T>
  */
-public class DoublyLinkedList<T> extends Sequence<T>{
+public class DoublyLinkedList<T> extends Sequence<T> implements Iterable<T>{
 	// Attributes
 	private int size;
 	private Node head;
@@ -295,6 +297,28 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		return output;
 	}
 	
+	@Override
+	public Iterator<T> iterator() {
+		Iterator<T> temp = new Iterator<T>() {
+			
+			private Node position = head;
+			
+			@Override
+			public boolean hasNext() {
+				return position != null;
+			}
+
+			@Override
+			public T next() {
+				T temp = position.value;
+				position = position.next;
+				return temp;
+			}
+		};
+		
+		return temp;
+	}
+	
 	/** Node class for containing data in the linked list.
 	 * @author Sobhan Mehrpour
 	 *
@@ -333,4 +357,18 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 		
 	}
+	
+	public static void main(String[] args) {
+		DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+		list.addToStart(4);
+		list.addToStart(3);
+		list.addToStart(2);
+		list.addToStart(1);
+		System.out.println(list);
+		for(Integer element : list) {
+			System.out.println(element);
+		}
+	}
+
+	
 }
