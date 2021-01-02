@@ -10,34 +10,42 @@ public class ArrayList<T> extends Sequence<T> {
 	private int size;
 	
 	/**
-	 * Default constructor.
+	 * Default constructor. Increments when resizing. Has a starting capacity of 10.
 	 */
 	public ArrayList() {
+		// Calls full constructor.
 		this(10, false);
 	}
 	
-	/** Constructor.
-	 * @param shouldDouble Whether resizing is done incrementally or doubles.
+	/** Resizing is done based on user input. Starting capacity defaults to 10.
+	 * @param shouldDouble Whether resizing is done incrementally or doubles. True means it doubles. 
+	 * False means it increments.
 	 */
 	public ArrayList(boolean shouldDouble) {
+		// Calls full constructor.
 		this(10, shouldDouble);
 	}
 	
-	/** Constructor
+	/** Starting capacity is left up to the user. The sequence will increment when resizing by default.
 	 * @param startCapacity The initial capacity of the array.
 	 */
 	public ArrayList(int startCapacity) {
+		// Calls full constructor.
 		this(startCapacity, false);
 	}
 
-	/** Full constructor.
+	/** A full constructor that allows the user to decide both the start capacity and the means of resizing.
 	 * @param startCapacity The initial capacity of the array.
-	 * @param shouldDouble Whether resizing is done incrementally or doubles.
+	 * @param shouldDouble Whether resizing is done incrementally or doubles. True means it doubles. 
+	 * False means it increments.
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList(int startCapacity, boolean shouldDouble) {
-		if(startCapacity <= 0)
-			startCapacity = 10;
+		// Handling exceptional cases.
+		if(startCapacity < 0)
+			throw new IllegalArgumentException("The start capacity cannot be negative.");
+		
+		// Instantiating the attributes.
 		size = 0;
 		this.shouldDouble = shouldDouble;
 		array = (T[])(new Object[startCapacity]);
@@ -50,6 +58,7 @@ public class ArrayList<T> extends Sequence<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	private void increaseCapacity() {
+		// Checks to see if resizing is needed or not.
 		if(size < capacity())
 			return;
 		
@@ -68,134 +77,120 @@ public class ArrayList<T> extends Sequence<T> {
 		array = temp;
 	}
 	
-	/** Adds the parameter to the end of the ArrayList.
-	 * @param object The object being passed.
-	 */
 	public void addToEnd(T object) {
+		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the end of the ArrayList.");
 		
+		// Resizing if needed, adding item, and increasing size.
 		increaseCapacity();
 		array[size++] = object;
 	}
 	
-	/** Adds the parameter to the start of the ArrayList.
-	 * @param object The object being passed.
-	 */
 	public void addToStart(T object) {
+		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the start of the ArrayList.");
 		
+		// Resizing if needed and shifting all objects.
 		increaseCapacity();
 		for(int i = size-1 ; i >= 0 ; i--)
 			array[i+1] = array[i];
 		
+		// Adding object to the start.
 		array[0] = object;
 		size++;
 	}
 	
-	/** Adds an object to the given index (shifts the previous contents of the index forward).
-	 * @param object The object being passed.
-	 * @param index The index the object is inserted at.
-	 */
 	public void addAtIndex(T object, int index) {
+		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the ArrayList.");
 		if(index < 0 || index > size)
 			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
 		
+		// Resizing if needed and shifting all objects.
 		increaseCapacity();
 		for(int i = size - 1 ; i >= index ; i--)
 			array[i+1] = array[i];
 		
+		// Adding object to the index.
 		array[index] = object;
 		size++;
 	}
 	
-	/**
-	 * @return The contents of the first index of the ArrayList.
-	 */
 	public T getFirst() {
+		// Returns null if this is empty; otherwise returns the object at the first index.
 		if(isEmpty())
 			return null;
 		else
 			return array[0];
 	}
 	
-	/**
-	 * @return The contents of the last index of the ArrayList.
-	 */
 	public T getLast() {
+		// Returns null if this is empty; otherwise returns the object at the last index.
 		if(isEmpty())
 			return null;
 		else
 			return array[size - 1];
 	}
 	
-	/** Returns the contents of a given index.
-	 * @param index The index we want to return.
-	 * @return The contents of index.
-	 */
 	public T getAtIndex(int index) {
+		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
 		if(isEmpty())
 			return null;
 		else
+			// Returning the value at the index.
 			return array[index];
 	}
-	
-	/** Removes the first item (index 0) and returns it.
-	 * @return The first index of the ArrayList.
-	 */
+
 	public T removeFirst() {
+		// Handling exceptional cases.
 		if(isEmpty())
 			return null;
 		
+		// Gets the first item and shifts everything appropriately.
 		T temp = getFirst();
 		for(int i = 1 ; i < size ; i++)
 			array[i-1] = array[i];
 		
-		size--;
+		// Removing item and returning it.
+		array[--size] = null;
 		return temp;
 	}
 	
-	/** Removes the last item of the ArrayList and returns it.
-	 * @return The content of the last index of the ArrayList.
-	 */
 	public T removeLast() {
+		// Handling exceptional cases.
 		if(isEmpty())
 			return null;
 		
+		// Removing last item and returning it.
 		T temp = getLast();
-		size--;
+		array[--size] = null;
 		return temp;
 	}
 	
-	/** Removes and returns the item at a given index.
-	 * @param index The index the object is removed from.
-	 * @return The contents of the index.
-	 */
 	public T removeAtIndex(int index) {
+		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
 		if(isEmpty())
 			return null;
 		
+		// Getting item and indices it as needed.
 		T temp = getAtIndex(index);
 		for(int i = index + 1 ; i < size ; i++)
 			array[i-1] = array[i];
 		
-		size--;
+		// Removing item and returning it.
+		array[--size] = null;
 		return temp;
 	}
 	
-	/** Replaces the contents of a given index with the object provided.
-	 * @param object The object placed inside the index.
-	 * @param index The index whose content is being replaced.
-	 * @return The original content of the index.
-	 */
 	public T replaceAtIndex(T object, int index) {
+		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
 		if(index < 0 || index >= size)
@@ -203,6 +198,7 @@ public class ArrayList<T> extends Sequence<T> {
 		if(isEmpty())
 			return null;
 		
+		// Replacing the object and returning the former object.
 		T temp = getAtIndex(index);
 		array[index] = object;
 		return temp;
@@ -210,9 +206,12 @@ public class ArrayList<T> extends Sequence<T> {
 	
 	@SuppressWarnings("unchecked")
 	public boolean equals(Object anotherObject) {
+		// Checking for null.
 		if(anotherObject == null) return false;
+		// Checking if the object is the right class.
 		else if (anotherObject.getClass() != this.getClass()) return false;
 		else {
+			// Casting and checking if sizes match.
 			ArrayList<T> anotherArrayList = (ArrayList<T>) anotherObject;
 			if(this.size != anotherArrayList.size)
 				return false;
@@ -233,6 +232,7 @@ public class ArrayList<T> extends Sequence<T> {
 	public String toString() {
 		String output = "[ ";
 		
+		// Looping through and adding objects to string.
 		for(int i = 0 ; i < size ; i++) {
 			if(i != size - 1)
 				output += array[i].toString() + ", ";
@@ -244,29 +244,22 @@ public class ArrayList<T> extends Sequence<T> {
 		return output;
 	}
 	
-	
-	/**
-	 * @return The current size of the array (the number of objects it houses).
-	 */
 	public int size() {
 		return size;
 	}
 	
-	/**
-	 * @return The current capacity of the array (the number of object it can house without resizing).
+	/** Returns the number of objects the sequence can contain before having to resize.
+	 * @return The current capacity of the array.
 	 */
 	public int capacity() {
 		return array.length;
 	}
 	
-	/**
-	 * @return Returns true if size = 0. Returns false otherwise.
-	 */
 	public boolean isEmpty() {
 		return size == 0;
 	}
 	
-	/**
+	/** 
 	 * @return Returns the current state of whether it doubles or not.
 	 */
 	public boolean shouldDouble() {
@@ -283,25 +276,25 @@ public class ArrayList<T> extends Sequence<T> {
 	}
 	
 	/**
-	 * Reduces the capacity to match size, thus saving space.
+	 * Reduces the capacity to match size, thus saving space. Note that it is the user's responsibility to ensure 
+	 * they do not call this method if the current size is zero and they are increasing capacity via doubling. 
+	 * Doing so will prevent the capacity from increasing, and will lead to an error.
 	 */
 	@SuppressWarnings("unchecked")
 	public void trimToSize() {
+		// Do nothing if the size and capacity are equal.
 		if(size == capacity())
 			return;
 		
+		// Otherwise create a correctly sized array and transfer all objects.
 		T[] temp = (T[]) (new Object[size]);
 		for(int i = 0 ; i < size ; i++)
 			temp[i] = array[i];
 		
+		// Assign new array.
 		array = temp;
 	}
 	
-	/** Scans the entire ArrayList and returns the index of the object if it's found. Returns -1 
-	 * if the object is not found.
-	 * @param object The object being searched for.
-	 * @return The index of object.
-	 */
 	public int getIndexOf(T object) {
 		// Throw exception if the object is null.
 		if(object == null)
@@ -316,15 +309,13 @@ public class ArrayList<T> extends Sequence<T> {
 		// Return -1 if not found.
 		return -1;
 	}
-	
-	/**
-	 * @param object The object being searched for.
-	 * @return Returns true if the object is found. Returns false if it is null or has not been found.
-	 */
+
 	public boolean contains(T object) {
+		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
 		
+		// Search for the index and check to see if not found.
 		return getIndexOf(object) != -1;
 	}
 	
