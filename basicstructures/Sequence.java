@@ -9,12 +9,12 @@ public abstract class Sequence<T>  implements Iterable<T>{
 	/** Adds the object to the beginning of the sequence.
 	 * @param object The object being passed.
 	 */
-	abstract public void addToStart(T object);
+	abstract public void addStart(T object);
 	
 	/** Adds the object to the end of the sequence.
 	 * @param object The object being passed.
 	 */
-	abstract public void addToEnd(T object);
+	abstract public void addLast(T object);
 	
 	/** Pushes anything at or after index forward and inserts the object at the index.
 	 * @param object The object being passed.

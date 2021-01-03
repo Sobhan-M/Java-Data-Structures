@@ -79,7 +79,7 @@ public class ArrayList<T> extends Sequence<T> {
 		array = temp;
 	}
 	
-	public void addToEnd(T object) {
+	public void addLast(T object) {
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the end of the ArrayList.");
@@ -89,7 +89,7 @@ public class ArrayList<T> extends Sequence<T> {
 		array[size++] = object;
 	}
 	
-	public void addToStart(T object) {
+	public void addStart(T object) {
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the start of the ArrayList.");
@@ -338,5 +338,5 @@ public class ArrayList<T> extends Sequence<T> {
 			
 		};
 		return temp;
-	}	
+	}
 }

@@ -20,7 +20,7 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		head = tail = null;
 	}
 	
-	public void addToStart(T object) {
+	public void addStart(T object) {
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Null value passed.");
@@ -38,7 +38,7 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		size++;
 	}
 	
-	public void addToEnd(T object) {
+	public void addLast(T object) {
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Null value passed.");
@@ -65,9 +65,9 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		
 		// Special cases for start and end.
 		if(isEmpty() || index == 0)
-			addToStart(object);
+			addStart(object);
 		else if (index == size)
-			addToEnd(object);
+			addLast(object);
 		else {
 			// Goes to correct index.
 			Node position = head;
@@ -121,6 +121,7 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		if(this.isEmpty())
 			return null;
 		if(size == 1) {
+			// Make list empty.
 			T temp = head.value;
 			head = tail = null;
 			size--;
@@ -140,6 +141,7 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		if(this.isEmpty())
 			return null;
 		if(size == 1) {
+			// Make list empty.
 			T temp = head.value;
 			head = tail = null;
 			size--;
@@ -193,12 +195,12 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 			return null;
 		if(index == 0){
 			T temp = removeFirst();
-			addToStart(object);
+			addStart(object);
 			return temp;
 		}
 		else if(index == size - 1) {
 			T temp = removeLast();
-			addToEnd(object);
+			addLast(object);
 			return temp;
 		}
 		else {
