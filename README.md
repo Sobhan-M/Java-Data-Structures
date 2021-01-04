@@ -14,8 +14,9 @@ to what I need.
 	
 	
 ## Key-Value Structures
-- Priority Queue :x:
-- Heap :x:
+- Sorted Priority Queue :x:
+- Unsorted Priority Queue :x:
+- ArrayHeap :x:
 - Unsorted Map :x:
 - Hash Table :x:
 - Dictionary :x:
