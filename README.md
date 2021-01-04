@@ -7,8 +7,8 @@ to what I need.
 - ArrayList :heavy_check_mark:
 - Singly Linked List :heavy_check_mark:
 - Doubly Linked List :heavy_check_mark:
-- Stack :x:
-- Queue :x:
+- Stack :heavy_check_mark:
+- Queue :heavy_check_mark:
 - Array Based Binary Tree :x:
 - Node Based Binary Tree :x:
 	
