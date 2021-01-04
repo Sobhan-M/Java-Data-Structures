@@ -6,7 +6,8 @@ import java.util.Iterator;
  * @author Sobhan Mehrpour
  * @param <T>
  */
-public class DoublyLinkedList<T> extends Sequence<T>{
+public class DoublyLinkedList<T> extends Sequence<T>
+{
 	// Attributes
 	private int size;
 	private Node head;
@@ -15,12 +16,14 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 	/**
 	 * Default Constructor.
 	 */
-	public DoublyLinkedList(){
+	public DoublyLinkedList()
+	{
 		size = 0;
 		head = tail = null;
 	}
 	
-	public void addStart(T object) {
+	public void addStart(T object) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Null value passed.");
@@ -28,7 +31,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		if(isEmpty())
 			// Special case.
 			head = tail = new Node(null, null, object);
-		else {
+		else 
+		{
 			// Adding to start and changing head as needed.
 			Node temp = new Node(null, head, object);
 			head.prev = temp;
@@ -38,7 +42,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		size++;
 	}
 	
-	public void addLast(T object) {
+	public void addLast(T object) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Null value passed.");
@@ -46,7 +51,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		if(isEmpty())
 			// Special case.
 			head = tail = new Node(null, null, object);
-		else {
+		else 
+		{
 			// Adding to the end and changing tail as needed.
 			Node temp = new Node(tail, null, object);
 			tail.next = temp;
@@ -56,7 +62,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		size++;
 	}
 
-	public void addAtIndex(T object, int index) {
+	public void addAtIndex(T object, int index) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Null value passed.");
@@ -68,7 +75,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 			addStart(object);
 		else if (index == size)
 			addLast(object);
-		else {
+		else 
+		{
 			// Goes to correct index.
 			Node position = head;
 			for(int i = 0 ; i < index ;i++)
@@ -82,21 +90,24 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 
-	public T getFirst() {
+	public T getFirst() 
+	{
 		if(isEmpty())
 			return null;
 		else
 			return head.value;
 	}
 
-	public T getLast() {
+	public T getLast() 
+	{
 		if(isEmpty())
 			return null;
 		else
 			return tail.value;
 	}
 
-	public T getAtIndex(int index) {
+	public T getAtIndex(int index) 
+	{
 		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException();
@@ -108,7 +119,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 			return getFirst();
 		else if(index == size - 1)
 			return getLast();
-		else {
+		else 
+		{
 			// Go to position then return it.
 			Node position = head;
 			for(int i = 0 ; i < index ; i++)
@@ -117,17 +129,20 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 
-	public T removeFirst() {
+	public T removeFirst() 
+	{
 		if(this.isEmpty())
 			return null;
-		if(size == 1) {
+		if(size == 1) 
+		{
 			// Make list empty.
 			T temp = head.value;
 			head = tail = null;
 			size--;
 			return temp;
 		}	
-		else {
+		else 
+		{
 			// Remove head and assign new head.
 			T temp = head.value;
 			head = head.next;
@@ -137,17 +152,20 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 
-	public T removeLast() {
+	public T removeLast() 
+	{
 		if(this.isEmpty())
 			return null;
-		if(size == 1) {
+		if(size == 1) 
+		{
 			// Make list empty.
 			T temp = head.value;
 			head = tail = null;
 			size--;
 			return temp;
 		}	
-		else {
+		else 
+		{
 			// Remove tail and assign new tail.
 			T temp = tail.value;
 			tail = tail.prev;
@@ -157,7 +175,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 
-	public T removeAtIndex(int index) {
+	public T removeAtIndex(int index) 
+	{
 		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException();
@@ -169,7 +188,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 			return removeFirst();
 		else if(index == size - 1)
 			return removeLast();
-		else {
+		else 
+		{
 			// Going to the index.
 			Node position = head;
 			for(int i = 0 ; i < index ; i++)
@@ -183,7 +203,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 
-	public T replaceAtIndex(T object, int index) {
+	public T replaceAtIndex(T object, int index) 
+	{
 		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException();
@@ -193,17 +214,20 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		// Special cases when empty, first index, or last index.
 		if(isEmpty())
 			return null;
-		if(index == 0){
+		if(index == 0)
+		{
 			T temp = removeFirst();
 			addStart(object);
 			return temp;
 		}
-		else if(index == size - 1) {
+		else if(index == size - 1) 
+		{
 			T temp = removeLast();
 			addLast(object);
 			return temp;
 		}
-		else {
+		else 
+		{
 			// Going to the index.
 			Node position = head;
 			for(int i = 0 ; i < index ; i++)
@@ -216,7 +240,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 
-	public int getIndexOf(T object) {
+	public int indexOf(T object) 
+	{
 		// Handling special cases.
 		if(object == null)
 			throw new IllegalArgumentException("Null object passed.");
@@ -226,7 +251,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		// Go through all nodes.
 		Node position = head;
 		int index = 0;
-		while(position != null) {
+		while(position != null) 
+		{
 			// If one node matches, return its index.
 			if(position.value.equals(object))
 				return index;
@@ -238,37 +264,46 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		return -1;
 	}
 
-	public boolean contains(T object) {
+	public boolean contains(T object) 
+	{
 		if(object == null)
 			throw new IllegalArgumentException("Null object passed.");
 		
 		// Uses getIndexOf to search and see if it is contained.
-		return (getIndexOf(object) != -1);
+		return (indexOf(object) != -1);
 	}
 
-	public int size() {
+	public int size() 
+	{
 		return size;
 	}
 	
-	public boolean isEmpty() {
+	public boolean isEmpty() 
+	{
 		return size == 0;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public boolean equals(Object anotherObject) {
+	public boolean equals(Object anotherObject) 
+	{
 		// Check to make sure it is not null.
-		if(anotherObject == null) return false;
+		if(anotherObject == null) 
+			return false;
 		// Check to make sure it is the right class.
-		else if(anotherObject.getClass() != this.getClass()) return false;
+		else if(anotherObject.getClass() != this.getClass()) 
+			return false;
 		else {
 			// Make sure the sizes match.
 			DoublyLinkedList<T> anotherList = (DoublyLinkedList<T>) anotherObject;
-			if(this.size != anotherList.size) return false;
-			else {
+			if(this.size != anotherList.size) 
+				return false;
+			else 
+			{
 				// Compare the sequences of nodes with each other.
 				Node position1 = this.head;
 				Node position2 = anotherList.head;
-				while(position1 != null) {
+				while(position1 != null) 
+				{
 					// Return false if the nodes don't match at any point.
 					if(! position1.equals(position2)) return false;
 					position1 = position1.next;
@@ -280,7 +315,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		}
 	}
 	
-	public String toString() {
+	public String toString() 
+	{
 		if(isEmpty())
 			return "";
 		if(size == 1)
@@ -289,7 +325,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		// Go through the entire sequence and add the strings of the nodes.
 		Node position = head;
 		String output = "";
-		while(position != null) {
+		while(position != null) 
+		{
 			if(position == tail)
 				output += position.toString();
 			else
@@ -299,19 +336,22 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		return output;
 	}
 	
-	@Override
-	public Iterator<T> iterator() {
-		Iterator<T> temp = new Iterator<T>() {
-			
+	public Iterator<T> iterator() 
+	{
+		// Anonymous iterator class.
+		Iterator<T> temp = new Iterator<T>() 
+		{
+			// Head.
 			private Node position = head;
 			
-			@Override
-			public boolean hasNext() {
+			public boolean hasNext() 
+			{
 				return position != null;
 			}
-
-			@Override
-			public T next() {
+			
+			// Returns current value before going to next node.
+			public T next() 
+			{
 				T temp = position.value;
 				position = position.next;
 				return temp;
@@ -325,7 +365,8 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 	 * @author Sobhan Mehrpour
 	 *
 	 */
-	private class Node {
+	private class Node 
+	{
 		// Attributes
 		private Node prev;
 		private Node next;
@@ -336,25 +377,31 @@ public class DoublyLinkedList<T> extends Sequence<T>{
 		 * @param aNext The next node.
 		 * @param aValue The value stored at this node.
 		 */
-		public Node(Node aPrev, Node aNext, T aValue){
+		public Node(Node aPrev, Node aNext, T aValue)
+		{
 			prev = aPrev;
 			next = aNext;
 			value = aValue;
 		}
 		
 		@SuppressWarnings("unchecked")
-		public boolean equals(Object anotherObject) {
+		public boolean equals(Object anotherObject) 
+		{
 			// Check for null and the class.
-			if(anotherObject == null) return false;
-			else if (anotherObject.getClass() != this.getClass()) return false;
-			else {
+			if(anotherObject == null) 
+				return false;
+			else if (anotherObject.getClass() != this.getClass()) 
+				return false;
+			else 
+			{
 				// Equality is if the values are the same.
 				Node anotherNode = (Node) anotherObject;
 				return (anotherNode.value.equals(this.value));
 			}
 		}
 		
-		public String toString() {
+		public String toString() 
+		{
 			return this.value.toString();
 		}
 		

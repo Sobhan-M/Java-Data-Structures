@@ -5,7 +5,8 @@ import java.util.Iterator;
 /** A resizable array that can access each position in constant time.
  * @author Sobhan Mehrpour
  */
-public class ArrayList<T> extends Sequence<T> {
+public class ArrayList<T> extends Sequence<T> 
+{
 	
 	private boolean shouldDouble;
 	private T[] array;
@@ -14,7 +15,8 @@ public class ArrayList<T> extends Sequence<T> {
 	/**
 	 * Default constructor. Increments when resizing. Has a starting capacity of 10.
 	 */
-	public ArrayList() {
+	public ArrayList() 
+	{
 		// Calls full constructor.
 		this(10, false);
 	}
@@ -23,7 +25,8 @@ public class ArrayList<T> extends Sequence<T> {
 	 * @param shouldDouble Whether resizing is done incrementally or doubles. True means it doubles. 
 	 * False means it increments.
 	 */
-	public ArrayList(boolean shouldDouble) {
+	public ArrayList(boolean shouldDouble) 
+	{
 		// Calls full constructor.
 		this(10, shouldDouble);
 	}
@@ -31,7 +34,8 @@ public class ArrayList<T> extends Sequence<T> {
 	/** Starting capacity is left up to the user. The sequence will increment when resizing by default.
 	 * @param startCapacity The initial capacity of the array.
 	 */
-	public ArrayList(int startCapacity) {
+	public ArrayList(int startCapacity) 
+	{
 		// Calls full constructor.
 		this(startCapacity, false);
 	}
@@ -42,7 +46,8 @@ public class ArrayList<T> extends Sequence<T> {
 	 * False means it increments.
 	 */
 	@SuppressWarnings("unchecked")
-	public ArrayList(int startCapacity, boolean shouldDouble) {
+	public ArrayList(int startCapacity, boolean shouldDouble) 
+	{
 		// Handling exceptional cases.
 		if(startCapacity < 0)
 			throw new IllegalArgumentException("The start capacity cannot be negative.");
@@ -59,7 +64,8 @@ public class ArrayList<T> extends Sequence<T> {
 	 * <strong> If shouldDouble = false</strong>  then the capacity will increment to save space. <br>
 	 */
 	@SuppressWarnings("unchecked")
-	private void increaseCapacity() {
+	private void increaseCapacity() 
+	{
 		// Checks to see if resizing is needed or not.
 		if(size < capacity())
 			return;
@@ -79,7 +85,8 @@ public class ArrayList<T> extends Sequence<T> {
 		array = temp;
 	}
 	
-	public void addLast(T object) {
+	public void addLast(T object) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the end of the ArrayList.");
@@ -89,7 +96,8 @@ public class ArrayList<T> extends Sequence<T> {
 		array[size++] = object;
 	}
 	
-	public void addStart(T object) {
+	public void addStart(T object) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the start of the ArrayList.");
@@ -104,7 +112,8 @@ public class ArrayList<T> extends Sequence<T> {
 		size++;
 	}
 	
-	public void addAtIndex(T object, int index) {
+	public void addAtIndex(T object, int index) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to add null object to the ArrayList.");
@@ -121,7 +130,8 @@ public class ArrayList<T> extends Sequence<T> {
 		size++;
 	}
 	
-	public T getFirst() {
+	public T getFirst() 
+	{
 		// Returns null if this is empty; otherwise returns the object at the first index.
 		if(isEmpty())
 			return null;
@@ -129,7 +139,8 @@ public class ArrayList<T> extends Sequence<T> {
 			return array[0];
 	}
 	
-	public T getLast() {
+	public T getLast() 
+	{
 		// Returns null if this is empty; otherwise returns the object at the last index.
 		if(isEmpty())
 			return null;
@@ -137,7 +148,8 @@ public class ArrayList<T> extends Sequence<T> {
 			return array[size - 1];
 	}
 	
-	public T getAtIndex(int index) {
+	public T getAtIndex(int index) 
+	{
 		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
@@ -148,7 +160,8 @@ public class ArrayList<T> extends Sequence<T> {
 			return array[index];
 	}
 
-	public T removeFirst() {
+	public T removeFirst() 
+	{
 		// Handling exceptional cases.
 		if(isEmpty())
 			return null;
@@ -163,7 +176,8 @@ public class ArrayList<T> extends Sequence<T> {
 		return temp;
 	}
 	
-	public T removeLast() {
+	public T removeLast() 
+	{
 		// Handling exceptional cases.
 		if(isEmpty())
 			return null;
@@ -174,7 +188,8 @@ public class ArrayList<T> extends Sequence<T> {
 		return temp;
 	}
 	
-	public T removeAtIndex(int index) {
+	public T removeAtIndex(int index) 
+	{
 		// Handling exceptional cases.
 		if(index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("Index is out of ArrayList bounds!");
@@ -191,7 +206,8 @@ public class ArrayList<T> extends Sequence<T> {
 		return temp;
 	}
 	
-	public T replaceAtIndex(T object, int index) {
+	public T replaceAtIndex(T object, int index) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
@@ -207,12 +223,16 @@ public class ArrayList<T> extends Sequence<T> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public boolean equals(Object anotherObject) {
+	public boolean equals(Object anotherObject) 
+	{
 		// Checking for null.
-		if(anotherObject == null) return false;
+		if(anotherObject == null) 
+			return false;
 		// Checking if the object is the right class.
-		else if (anotherObject.getClass() != this.getClass()) return false;
-		else {
+		else if (anotherObject.getClass() != this.getClass()) 
+			return false;
+		else 
+		{
 			// Casting and checking if sizes match.
 			ArrayList<T> anotherArrayList = (ArrayList<T>) anotherObject;
 			if(this.size != anotherArrayList.size)
@@ -231,7 +251,8 @@ public class ArrayList<T> extends Sequence<T> {
 		}
 	}
 	
-	public String toString() {
+	public String toString() 
+	{
 		String output = "[ ";
 		
 		// Looping through and adding objects to string.
@@ -246,25 +267,29 @@ public class ArrayList<T> extends Sequence<T> {
 		return output;
 	}
 	
-	public int size() {
+	public int size() 
+	{
 		return size;
 	}
 	
 	/** Returns the number of objects the sequence can contain before having to resize.
 	 * @return The current capacity of the array.
 	 */
-	public int capacity() {
+	public int capacity() 
+	{
 		return array.length;
 	}
 	
-	public boolean isEmpty() {
+	public boolean isEmpty() 
+	{
 		return size == 0;
 	}
 	
 	/** 
 	 * @return Returns the current state of whether it doubles or not.
 	 */
-	public boolean shouldDouble() {
+	public boolean shouldDouble() 
+	{
 		return shouldDouble;
 	}
 	
@@ -273,7 +298,8 @@ public class ArrayList<T> extends Sequence<T> {
 	 * double whenever it reaches the capacity. False indicates that the ArrayList will increment 
 	 * whenever it reaches the capacity.
 	 */
-	public void setDouble(boolean shouldDouble) {
+	public void setDouble(boolean shouldDouble) 
+	{
 		this.shouldDouble = shouldDouble;
 	}
 	
@@ -283,7 +309,8 @@ public class ArrayList<T> extends Sequence<T> {
 	 * Doing so will prevent the capacity from increasing, and will lead to an error.
 	 */
 	@SuppressWarnings("unchecked")
-	public void trimToSize() {
+	public void trimToSize() 
+	{
 		// Do nothing if the size and capacity are equal.
 		if(size == capacity())
 			return;
@@ -297,7 +324,8 @@ public class ArrayList<T> extends Sequence<T> {
 		array = temp;
 	}
 	
-	public int getIndexOf(T object) {
+	public int indexOf(T object) 
+	{
 		// Throw exception if the object is null.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
@@ -312,29 +340,35 @@ public class ArrayList<T> extends Sequence<T> {
 		return -1;
 	}
 
-	public boolean contains(T object) {
+	public boolean contains(T object) 
+	{
 		// Handling exceptional cases.
 		if(object == null)
 			throw new IllegalArgumentException("Attempted to use null object in the ArrayList.");
 		
 		// Search for the index and check to see if not found.
-		return getIndexOf(object) != -1;
+		return indexOf(object) != -1;
 	}
 	
-	public Iterator<T> iterator(){
-		Iterator<T> temp = new Iterator<T>() {
+	public Iterator<T> iterator()
+	{
+		// Anonymous iterator class.
+		Iterator<T> temp = new Iterator<T>() 
+		{
+			// Index.
 			private int currentIndex = 0;
 
-			@Override
-			public boolean hasNext() {
+			// Valid next.
+			public boolean hasNext() 
+			{
 				return currentIndex < size;
 			}
 
-			@Override
-			public T next() {
+			// Return current value and increment.
+			public T next() 
+			{
 				return array[currentIndex++];
 			}
-			
 			
 		};
 		return temp;

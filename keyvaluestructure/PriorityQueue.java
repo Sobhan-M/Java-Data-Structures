@@ -8,6 +8,7 @@ public abstract class PriorityQueue <K extends Comparable<K>, V>
 	{
 		this.isMinPriority = isMinPriority;
 	}
+	
 	public boolean isMinPriority()
 	{
 		return isMinPriority;

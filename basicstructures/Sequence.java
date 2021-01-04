@@ -4,7 +4,8 @@ package basicstructures;
  * @author Sobhan Mehrpour
  * @param <T>
  */
-public abstract class Sequence<T>  implements Iterable<T>{
+public abstract class Sequence<T>  implements Iterable<T>
+{
 	
 	/** Adds the object to the beginning of the sequence.
 	 * @param object The object being passed.
@@ -75,7 +76,7 @@ public abstract class Sequence<T>  implements Iterable<T>{
 	 * @param object The object being searched for.
 	 * @return Returns the index of the object being searched for. Returns -1 if it is not found.
 	 */
-	abstract public int getIndexOf(T object);
+	abstract public int indexOf(T object);
 	
 	/** States whether the object currently resides in the sequence or not.
 	 * @param object The object being searched for.
