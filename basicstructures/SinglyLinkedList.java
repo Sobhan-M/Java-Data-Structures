@@ -165,6 +165,7 @@ public class SinglyLinkedList<T> extends Sequence<T>{
 				position = position.next;
 			T temp = position.next.value;
 			position.next = position.next.next;
+			size--;
 			return temp;
 		}
 	}
