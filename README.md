@@ -14,7 +14,7 @@ to what I need.
 	
 	
 ## Key-Value Structures
-- Sorted Priority Queue :x:
+- Sorted Priority Queue :heavy_check_mark:
 - Unsorted Priority Queue :x:
 - ArrayHeap :x:
 - Unsorted Map :x:
