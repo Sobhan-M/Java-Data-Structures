@@ -352,6 +352,9 @@ public class DoublyLinkedList<T> extends Sequence<T>
 			// Returns current value before going to next node.
 			public T next() 
 			{
+				if (!hasNext())
+					throw new IndexOutOfBoundsException("Iterator has no next!");
+				
 				T temp = position.value;
 				position = position.next;
 				return temp;

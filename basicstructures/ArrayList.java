@@ -367,6 +367,9 @@ public class ArrayList<T> extends Sequence<T>
 			// Return current value and increment.
 			public T next() 
 			{
+				if (!hasNext())
+					throw new IndexOutOfBoundsException("Iterator has no next!");
+				
 				return array[currentIndex++];
 			}
 			

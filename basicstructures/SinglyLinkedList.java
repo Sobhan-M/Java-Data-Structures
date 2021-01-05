@@ -37,6 +37,9 @@ public class SinglyLinkedList<T> extends Sequence<T>
 			// Return current value before going to next.
 			public T next() 
 			{
+				if (!hasNext())
+					throw new IndexOutOfBoundsException("Iterator has no next!");
+				
 				T temp = position.value;
 				position = position.next;
 				return temp;
