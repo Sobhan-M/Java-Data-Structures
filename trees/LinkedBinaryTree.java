@@ -76,11 +76,83 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 		return temp;
 	}
 
-	@Override
 	public T remove(Position<T> position) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (position == null)
+			throw new IllegalArgumentException("Null value passed.");
+		if (isEmpty())
+			throw new IllegalStateException("Cannot remove from an empty binary tree.");
+		
+		Node node = positionToNode(position);
+		T temp = node.value;
+		
+		if (numChildren(node) == 2)
+		{
+			throw new IllegalStateException("Cannot remove a node with two children.");
+		}
+		else if (node.hasLeft())
+		{
+			
+			if (node != root)
+			{
+				if (node.parent.leftChild == node)
+				{
+					node.parent.leftChild = node.leftChild;
+					node.leftChild.parent = node.parent;
+				}
+				else
+				{
+					node.parent.rightChild = node.leftChild;
+					node.leftChild.parent = node.parent;
+				}
+			}
+			else
+			{
+				root = node.leftChild;
+			}
+		}
+		else if (node.hasRight())
+		{
+			if (node != root)
+			{
+				if (node.parent.leftChild == node)
+				{
+					node.parent.leftChild = node.rightChild;
+					node.rightChild.parent = node.parent;
+				}
+				else
+				{
+					node.parent.rightChild = node.rightChild;
+					node.rightChild.parent = node.parent;
+				}
+			}
+			else
+			{
+				root = node.rightChild;
+			}
+		}
+		else
+		{
+			if (node != root)
+			{
+				if (node.parent.leftChild == node)
+				{
+					node.parent.leftChild = null;
+				}
+				else
+				{
+					node.parent.rightChild = null;
+				}
+			}
+			else
+			{
+				root = null;
+			}
+			
+		}
+		
+		size--;
+		return temp;
 	}
 
 	public Position<T> root() 
@@ -140,10 +212,36 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 		return size;
 	}
 
-	@Override
-	public int height() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int height() 
+	{
+		if (isEmpty())
+			return 0;
+		
+		return height(root, 0);
+	}
+	
+	private int height(Node root, int height)
+	{
+		// If no children, add one to height and return.
+		if (root.isExternal())
+		{
+			return height++;
+		}
+		// If only has a left child, follow that subtree.
+		else if (numChildren(root) == 1 && root.hasLeft())
+		{
+			return height(root.leftChild, height++);
+		}
+		// If only has a right child, follow that subtree.
+		else if (numChildren(root) == 1 && root.hasRight())
+		{
+			return height(root.rightChild, height++);
+		}
+		// If it has two children, then follow both subtrees and return the biggest one.
+		else
+		{
+			return Math.max(height(root.leftChild, height++), height(root.rightChild, height++));
+		}
 	}
 
 	public boolean isEmpty() 
