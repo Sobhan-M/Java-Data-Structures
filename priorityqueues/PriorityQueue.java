@@ -1,4 +1,4 @@
-package keyvaluestructure;
+package priorityqueues;
 
 /** An abstract priority queue that supports the various priority queue implementations. 
  * These implementations include a sorted priority queue, unsorted priority queue, and a heap.

@@ -1,4 +1,4 @@
-package keyvaluestructure;
+package priorityqueues;
 
 import basicstructures.DoublyLinkedList;
 

@@ -1,4 +1,4 @@
-package keyvaluestructure;
+package priorityqueues;
 
 /** A wrapper class for key-value pairs. To be used in various key-value structures like priority queues and maps.
  * @author Sobhan Mehrpour
@@ -76,6 +76,22 @@ public class Entry <K extends Comparable<K>, V> implements Comparable<Entry<K,V>
 	public V getValue()
 	{
 		return value;
+	}
+	
+	public boolean hasSameKey(Entry<K,V> entry)
+	{
+		if (entry == null || entry.key == null || entry.value == null)
+			throw new IllegalArgumentException("Invalid entry! Entry cannot be null or have null component.");
+		
+		return this.key.equals(entry.key);
+	}
+	
+	public boolean hasSameKey(K key)
+	{
+		if (key == null)
+			throw new IllegalArgumentException("Invalid key! It cannot be null!");
+		
+		return this.key.equals(entry.key);
 	}
 
 }
