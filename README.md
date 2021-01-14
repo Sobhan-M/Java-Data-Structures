@@ -10,7 +10,7 @@ to what I need.
 - Stack :heavy_check_mark:
 - Queue :heavy_check_mark:
 - Array Based Binary Tree :x:
-- Node Based Binary Tree :x:
+- Node Based Binary Tree :heavy_check_mark:
 	
 	
 ## Key-Value Structures

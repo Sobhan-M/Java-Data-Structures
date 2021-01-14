@@ -1,22 +1,36 @@
 package trees;
 
+/** A binary tree implemented with nodes.
+ * @author Sobhan Mehrpour
+ * @param <T>
+ */
 public class LinkedBinaryTree<T> extends BinaryTree<T>
 {
 	private int size;
 	private Node root;
 
+	/**
+	 * Default constructor. Sets size to zero and has no root.
+	 */
 	public LinkedBinaryTree()
 	{
 		root = null;
 		size = 0;
 	}
 	
+	/** A constructor that begins the tree with a root.
+	 * @param rootValue The value of the root.
+	 */
 	public LinkedBinaryTree(T rootValue)
 	{
 		root = new Node(rootValue, null);
 		size = 1;
 	}
 	
+	/** Private method that safely converts a position into a node.
+	 * @param position The position.
+	 * @return The position converted into a node.
+	 */
 	private Node positionToNode(Position<T> position)
 	{
 		if (position.getClass() != (new Node(null, null).getClass()))
@@ -27,9 +41,13 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 	
 	public Position<T> addRoot(T object)
 	{
+		// Exception handling.
 		if (!isEmpty())
 			throw new IllegalStateException("Cannot add root to a non-empty tree!");
+		if (object == null)
+			throw new IllegalArgumentException("Cannot pass a null value.");
 		
+		// Creating new node.
 		root = new Node(object, null);
 		size++;
 		return root;
@@ -37,13 +55,16 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 
 	public Position<T> addLeft(Position<T> position, T object) 
 	{
+		// Exception handling.
 		if (position == null || object == null)
 			throw new IllegalArgumentException("Null value passed.");
 		
+		// Conversion to node.
 		Node pos = positionToNode(position);
 		if (pos.hasLeft())
 			throw new IllegalStateException("Cannot add a left child to a node that already has a left child.");
 		
+		// Inserting item.
 		pos.leftChild = new Node(object, pos);
 		size++;
 		
@@ -52,13 +73,16 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 
 	public Position<T> addRight(Position<T> position, T object) 
 	{
+		// Exception handling.
 		if (position == null || object == null)
 			throw new IllegalArgumentException("Null value passed.");
 		
+		// Converting to node.
 		Node pos = positionToNode(position);
 		if (pos.hasRight())
 			throw new IllegalStateException("Cannot add a left child to a node that already has a left child.");
 		
+		// Inserting node.
 		pos.rightChild = new Node(object, pos);
 		size++;
 		
@@ -67,9 +91,11 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 
 	public T replace(Position<T> position, T object) 
 	{
+		// Exception handling.
 		if (position == null || object == null)
 			throw new IllegalArgumentException("Null value passed.");
 		
+		// Replacement.
 		Node pos = positionToNode(position);
 		T temp = pos.value;
 		pos.value = object;
@@ -78,21 +104,24 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 
 	public T remove(Position<T> position) 
 	{
+		// Exception handling.
 		if (position == null)
 			throw new IllegalArgumentException("Null value passed.");
 		if (isEmpty())
 			throw new IllegalStateException("Cannot remove from an empty binary tree.");
 		
+		// Converting to node.
 		Node node = positionToNode(position);
 		T temp = node.value;
 		
+		// Doesn't work if it has two children.
 		if (numChildren(node) == 2)
 		{
 			throw new IllegalStateException("Cannot remove a node with two children.");
 		}
 		else if (node.hasLeft())
 		{
-			
+			// The case when the current node is not the root.
 			if (node != root)
 			{
 				if (node.parent.leftChild == node)
@@ -106,13 +135,16 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 					node.leftChild.parent = node.parent;
 				}
 			}
+			// When it is the root.
 			else
 			{
 				root = node.leftChild;
+				root.parent = null;
 			}
 		}
 		else if (node.hasRight())
 		{
+			// The case when the current node is not the root.
 			if (node != root)
 			{
 				if (node.parent.leftChild == node)
@@ -126,13 +158,17 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 					node.rightChild.parent = node.parent;
 				}
 			}
+			// When it is the root.
 			else
 			{
 				root = node.rightChild;
+				root.parent = null;
 			}
 		}
+		// The case when it has no children.
 		else
 		{
+			// When it is not the root.
 			if (node != root)
 			{
 				if (node.parent.leftChild == node)
@@ -144,6 +180,7 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 					node.parent.rightChild = null;
 				}
 			}
+			// When it is the root.
 			else
 			{
 				root = null;
@@ -189,12 +226,14 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 
 	public int numChildren(Position<T> position)
 	{
+		// Exception handling.
 		if (position == null)
 			throw new IllegalArgumentException("Null value passed.");
 		
 		Node pos = positionToNode(position);
 		int numOfChildren = 0;
 		
+		// Counts each child.
 		if (pos.hasLeft())
 		{
 			numOfChildren++;
@@ -220,6 +259,11 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 		return height(root, 0);
 	}
 	
+	/** Private method for finding the height of the tree recursively.
+	 * @param root The root of the tree.
+	 * @param height The current height of the tree thus far.
+	 * @return The total height of the tree.
+	 */
 	private int height(Node root, int height)
 	{
 		// If no children, add one to height and return.
@@ -289,6 +333,9 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 		return positionToNode(position).hasRight();
 	}
 	
+	/** Private node class
+	 * @author Sobhan Mehrpour
+	 */
 	private class Node implements Position<T>
 	{
 		private T value;
@@ -296,6 +343,10 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 		private Node leftChild;
 		private Node rightChild;
 
+		/** Node constructor.
+		 * @param value The value stored at the node.
+		 * @param parent The node's parent.
+		 */
 		public Node(T value, Node parent)
 		{
 			this.value = value;
@@ -304,6 +355,9 @@ public class LinkedBinaryTree<T> extends BinaryTree<T>
 			this.rightChild = null;
 		}
 		
+		/**
+		 * Returns the value.
+		 */
 		public T getValue() 
 		{
 			return value;
