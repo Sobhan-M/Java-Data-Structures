@@ -91,7 +91,7 @@ public class Entry <K extends Comparable<K>, V> implements Comparable<Entry<K,V>
 		if (key == null)
 			throw new IllegalArgumentException("Invalid key! It cannot be null!");
 		
-		return this.key.equals(entry.key);
+		return this.key.equals(key);
 	}
 
 }
