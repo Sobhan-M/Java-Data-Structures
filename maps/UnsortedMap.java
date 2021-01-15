@@ -12,7 +12,6 @@ public class UnsortedMap<K extends Comparable<K>, V> extends Map <K,V>
 		list = new DoublyLinkedList<Entry<K,V>>();
 	}
 
-	@Override
 	public Entry<K, V> get(K key) {
 		if (key == null)
 			throw new IllegalArgumentException("The key cannot be null!");
@@ -29,7 +28,6 @@ public class UnsortedMap<K extends Comparable<K>, V> extends Map <K,V>
 		return null;
 	}
 
-	@Override
 	public void put(K key, V value) {
 		if (key == null || value == null)
 			throw new IllegalArgumentException("The key and value must not be null");
@@ -38,7 +36,6 @@ public class UnsortedMap<K extends Comparable<K>, V> extends Map <K,V>
 		incrementSize();
 	}
 
-	@Override
 	public Entry<K, V> remove(K key) {
 		if (key == null)
 			throw new IllegalArgumentException("The key cannot be null!");
