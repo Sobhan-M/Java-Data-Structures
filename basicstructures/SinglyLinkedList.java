@@ -285,15 +285,15 @@ public class SinglyLinkedList<T> extends Sequence<T>
 		
 		// Go through the entire sequence and add the strings of the nodes.
 		Node position = head;
-		String output = "";
+		StringBuilder output = new StringBuilder();
 		while(position != null) 
 		{
-			output += position.toString();
+			output.append(position.toString());
 			position = position.next;
 			if(position != null)
-				output += " --> ";
+				output.append(" --> ");
 		}
-		return output;
+		return output.toString();
 	}
 	
 	/** Internal node for containing data in the list.

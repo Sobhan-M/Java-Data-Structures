@@ -6,7 +6,6 @@ import priorityqueues.Entry;
 public class HashMap <K extends Comparable<K>, V> extends Map<K,V>
 {
 	DoublyLinkedList<Entry<K,V>>[] list;
-	int[] arrat= new int[10];
 	
 	@SuppressWarnings("unchecked")
 	public HashMap(int tableSize)
@@ -83,6 +82,21 @@ public class HashMap <K extends Comparable<K>, V> extends Map<K,V>
 	public int tableSize()
 	{
 		return list.length;
+	}
+	
+	public String toString()
+	{
+		StringBuilder output = new StringBuilder();
+		StringBuilder temp;
+		for (int i = 0 ; i < list.length ; i++)
+		{
+			temp = new StringBuilder(i + ": ");
+			temp.append(list[i].toString());
+			temp.append("\n");
+			output.append(temp);
+		}
+		
+		return output.toString();
 	}
 
 }

@@ -253,18 +253,18 @@ public class ArrayList<T> extends Sequence<T>
 	
 	public String toString() 
 	{
-		String output = "[ ";
+		StringBuilder output = new StringBuilder("[ ");
 		
 		// Looping through and adding objects to string.
 		for(int i = 0 ; i < size ; i++) {
 			if(i != size - 1)
-				output += array[i].toString() + ", ";
+				output.append(array[i].toString() + ", ");
 			else
-				output += array[i].toString() + " ";
+				output.append(array[i].toString() + " ");
 		}
 		
-		output += "]";
-		return output;
+		output.append("]");
+		return output.toString();
 	}
 	
 	public int size() 

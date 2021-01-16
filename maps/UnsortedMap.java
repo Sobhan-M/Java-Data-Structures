@@ -56,5 +56,10 @@ public class UnsortedMap<K extends Comparable<K>, V> extends Map <K,V>
 		
 		return null;
 	}
+	
+	public String toString()
+	{
+		return list.toString();
+	}
 
 }

@@ -125,4 +125,9 @@ public class SortedMap <K extends Comparable<K>, V> extends Map<K,V>
 			return list.removeAtIndex(index);
 		}
 	}
+	
+	public String toString()
+	{
+		return list.toString();
+	}
 }

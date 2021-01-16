@@ -324,16 +324,16 @@ public class DoublyLinkedList<T> extends Sequence<T>
 		
 		// Go through the entire sequence and add the strings of the nodes.
 		Node position = head;
-		String output = "";
+		StringBuilder output = new StringBuilder();
 		while(position != null) 
 		{
 			if(position == tail)
-				output += position.toString();
+				output.append(position.toString());
 			else
-				output += position.toString() + " --> ";
+				output.append(position.toString() + " --> ");
 			position = position.next;
 		}
-		return output;
+		return output.toString();
 	}
 	
 	public Iterator<T> iterator() 
