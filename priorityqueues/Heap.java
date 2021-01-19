@@ -35,14 +35,53 @@ public class Heap <K extends Comparable<K>, V> extends PriorityQueue<K,V>
 		return (index - 1)/2;
 	}
 	
+	private Entry<K,V> getParent(int index)
+	{
+		return list.getAtIndex(parent(index));
+	}
+	
 	private int leftChild(int index)
 	{
 		return index * 2 + 1;
 	}
 	
+	private Entry<K,V> getLeftChild(int index)
+	{
+		return list.getAtIndex(leftChild(index));
+	}
+	
 	private int rightChild(int index)
 	{
 		return index * 2 + 2;
+	}
+	
+	private Entry<K,V> getRightChild(int index)
+	{
+		return list.getAtIndex(rightChild(index));
+	}
+	
+	private int numOfChild(int index)
+	{
+		int num = 0;
+		if (! isOutOfBounds(leftChild(index)))
+		{
+			num++;
+		}
+		if (! isOutOfBounds(rightChild(index)))
+		{
+			num++;
+		}
+		return num;
+	}
+	
+	private boolean hasLeftChild(int index)
+	{
+		return ! isOutOfBounds(leftChild(index));
+	}
+	
+	private boolean hasRightChild(int index)
+	{
+		return ! isOutOfBounds(rightChild(index));
 	}
 	
 	private void swap(int index1, int index2)
@@ -57,21 +96,42 @@ public class Heap <K extends Comparable<K>, V> extends PriorityQueue<K,V>
 	
 	private void upHeap(int index)
 	{
-		if (hasPriority(list.getAtIndex(index),list.getAtIndex(parent(index))))
+		if (hasPriority(list.getAtIndex(index), getParent(index)))
 		{
 			swap(index, parent(index));
 			upHeap(parent(index));
 		}
 	}
 	
-	private void downHeap(int index)
+	private void downHeap(int position)
 	{
-		if (!isOutOfBounds(leftChild(index)) && hasPriority(list.getAtIndex(leftChild(index)), list.getAtIndex(index)))
+		// 1 child, left
+		if (numOfChild(position) == 1 && hasLeftChild(position) && hasPriority(getLeftChild(position), list.getAtIndex(position)))
 		{
-			swap(index, leftChild(index));
-			downHeap(leftChild(index));
+			swap(position, leftChild(position));
+			downHeap(leftChild(position));
 		}
-		// TODO Complete downheap.
+		// 1 child, right
+		else if (numOfChild(position) == 1 && hasRightChild(position) && hasPriority(getRightChild(position), list.getAtIndex(position)))
+		{
+			swap(position, rightChild(position));
+			downHeap(rightChild(position));
+		}
+		// 2 children, left
+		else if (numOfChild(position) == 2 && hasPriority(getLeftChild(position), list.getAtIndex(position)) && 
+				(hasPriority(getLeftChild(position), getRightChild(position)) || getLeftChild(position).hasSameKey(getRightChild(position))))
+		{
+			swap(position, leftChild(position));
+			downHeap(leftChild(position));
+		}
+		// 2 children, right
+		else if (numOfChild(position) == 2 && hasPriority(getRightChild(position), list.getAtIndex(position)) && 
+				hasPriority(getRightChild(position), getLeftChild(position)))
+		{
+			swap(position, rightChild(position));
+			downHeap(rightChild(position));
+		}
+		// else terminate
 	}
 	
 	
