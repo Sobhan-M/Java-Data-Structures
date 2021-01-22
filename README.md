@@ -9,16 +9,25 @@ to what I need.
 - Doubly Linked List :heavy_check_mark:
 - Stack :heavy_check_mark:
 - Queue :heavy_check_mark:
+
+## Trees
 - Array Based Binary Tree :x:
 - Node Based Binary Tree :heavy_check_mark:
-	
-	
-## Key-Value Structures
-- Sorted Priority Queue :heavy_check_mark:
-- Unsorted Priority Queue :heavy_check_mark:
-- ArrayHeap :x:
-- Unsorted Map :x:
-- Hash Table :x:
-- Dictionary :x:
 - Binary Search Tree :x:
 - AVL Tree :x:
+	
+## Priority Queues
+- Sorted Priority Queue :heavy_check_mark:
+- Unsorted Priority Queue :heavy_check_mark:
+- Heap :heavy_check_mark:
+
+## Maps
+- Unsorted Map :heavy_check_mark:
+- Sorted Map :heavy_check_mark:
+- Hash Map :heavy_check_mark:
+
+## Graphs
+- Edge List Graph :x:
+- Adjacency List Graph :x:
+- Adjacency Map Graph :x:
+- Adjacency Matrix Graph :x:
