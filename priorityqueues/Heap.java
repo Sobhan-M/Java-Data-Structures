@@ -4,7 +4,7 @@ import basicstructures.ArrayList;
 
 public class Heap <K extends Comparable<K>, V> extends PriorityQueue<K,V>
 {
-	ArrayList<Entry<K,V>> list;
+	ArrayList<HeapEntry> list;
 	
 	public Heap()
 	{
@@ -14,15 +14,12 @@ public class Heap <K extends Comparable<K>, V> extends PriorityQueue<K,V>
 	public Heap(boolean isMinPriority) 
 	{
 		super(isMinPriority);
-		list = new ArrayList<Entry<K,V>>(1, true);
+		list = new ArrayList<HeapEntry>(1, true);
 	}
 	
-	private boolean isRoot(Entry<K,V> entry)
+	private boolean isOutOfBounds(HeapEntry entry)
 	{
-		if (entry == null || entry.getKey() == null || entry.getValue() == null)
-			throw new IllegalArgumentException("Entry cannot be null or have null components.");
-		
-		return entry == list.getFirst();
+		return (entry.index >= list.size() || entry.index < 0 || list.getAtIndex(entry.index) == null);
 	}
 	
 	private boolean isOutOfBounds(int index)
@@ -30,138 +27,108 @@ public class Heap <K extends Comparable<K>, V> extends PriorityQueue<K,V>
 		return (index >= list.size() || index < 0 || list.getAtIndex(index) == null);
 	}
 	
-	private int parent(int index)
+	private void swap(HeapEntry entry1, HeapEntry entry2)
 	{
-		return (index - 1)/2;
-	}
-	
-	private Entry<K,V> getParent(int index)
-	{
-		return list.getAtIndex(parent(index));
-	}
-	
-	private int leftChild(int index)
-	{
-		return index * 2 + 1;
-	}
-	
-	private Entry<K,V> getLeftChild(int index)
-	{
-		return list.getAtIndex(leftChild(index));
-	}
-	
-	private int rightChild(int index)
-	{
-		return index * 2 + 2;
-	}
-	
-	private Entry<K,V> getRightChild(int index)
-	{
-		return list.getAtIndex(rightChild(index));
-	}
-	
-	private int numOfChild(int index)
-	{
-		int num = 0;
-		if (! isOutOfBounds(leftChild(index)))
-		{
-			num++;
-		}
-		if (! isOutOfBounds(rightChild(index)))
-		{
-			num++;
-		}
-		return num;
-	}
-	
-	private boolean hasLeftChild(int index)
-	{
-		return ! isOutOfBounds(leftChild(index));
-	}
-	
-	private boolean hasRightChild(int index)
-	{
-		return ! isOutOfBounds(rightChild(index));
-	}
-	
-	private void swap(int index1, int index2)
-	{
-		if (isOutOfBounds(index1) || isOutOfBounds(index2))
-			throw new IndexOutOfBoundsException("Cannot swap indices that are out of bound");
+		if (isOutOfBounds(entry1) || isOutOfBounds(entry2))
+			throw new IndexOutOfBoundsException("Cannot swap entries that are out of bound");
 		
-		Entry<K,V> temp = list.getAtIndex(index1);
-		list.replaceAtIndex(list.getAtIndex(index2), index1);
-		list.replaceAtIndex(temp, index2);
+		// Swapping indices.
+		int tempIndex = entry1.index;
+		entry1.index = entry2.index;
+		entry2.index = tempIndex;
+		
+		// Swapping entries.
+		list.replaceAtIndex(entry1, entry1.index);
+		list.replaceAtIndex(entry2, entry2.index);
+		
 	}
 	
-	private void upHeap(int index)
+	private void upHeap(HeapEntry entry)
 	{
-		if (hasPriority(list.getAtIndex(index), getParent(index)))
+			
+		if (entry.hasParent() && hasPriority(entry, entry.parent()))
 		{
-			swap(index, parent(index));
-			upHeap(parent(index));
+			swap(entry, entry.parent());
+			upHeap(entry);
 		}
 	}
 	
-	private void downHeap(int position)
+	private void downHeap(HeapEntry entry)
 	{
-		// 1 child, left
-		if (numOfChild(position) == 1 && hasLeftChild(position) && hasPriority(getLeftChild(position), list.getAtIndex(position)))
+		if (entry == null)
+			throw new IllegalArgumentException("Null value passed to downheap");
+		
+		// One child, left.
+		if (entry.numOfChildren() == 1 && entry.hasLeft() && hasPriority(entry.left(), entry))
 		{
-			swap(position, leftChild(position));
-			downHeap(leftChild(position));
+			swap(entry.left(), entry);
+			downHeap(entry);
 		}
-		// 1 child, right
-		else if (numOfChild(position) == 1 && hasRightChild(position) && hasPriority(getRightChild(position), list.getAtIndex(position)))
+		// One child, right.
+		else if (entry.numOfChildren() == 1 && entry.hasRight() && hasPriority(entry.right(), entry))
 		{
-			swap(position, rightChild(position));
-			downHeap(rightChild(position));
+			swap(entry.right(), entry);
+			downHeap(entry);
 		}
-		// 2 children, left
-		else if (numOfChild(position) == 2 && hasPriority(getLeftChild(position), list.getAtIndex(position)) && 
-				(hasPriority(getLeftChild(position), getRightChild(position)) || getLeftChild(position).hasSameKey(getRightChild(position))))
+		// Two children, left.
+		else if (entry.numOfChildren() == 2 && hasPriority(entry.left(), entry) 
+				&& (hasPriority(entry.left(), entry.right()) || entry.left().hasSameKey(entry.right())))
 		{
-			swap(position, leftChild(position));
-			downHeap(leftChild(position));
+			swap(entry.left(), entry);
+			downHeap(entry);
 		}
-		// 2 children, right
-		else if (numOfChild(position) == 2 && hasPriority(getRightChild(position), list.getAtIndex(position)) && 
-				hasPriority(getRightChild(position), getLeftChild(position)))
+		// Two children, right.
+		else if (entry.numOfChildren() == 2 && hasPriority(entry.right(), entry) && hasPriority(entry.right(), entry.left()))
 		{
-			swap(position, rightChild(position));
-			downHeap(rightChild(position));
+			swap(entry.right(), entry);
+			downHeap(entry);
 		}
-		// else terminate
 	}
-	
-	
 
 	@Override
 	public void insert(K key, V value) 
 	{
-		// TODO Auto-generated method stub
+		if (key == null || value == null)
+			throw new IllegalArgumentException("Key or value cannot be null.");
 		
+		HeapEntry entry = new HeapEntry(key, value);
+		list.addLast(entry);
+		upHeap(entry);
 	}
 
 	@Override
 	public void insert(Entry<K, V> entry) 
 	{
-		// TODO Auto-generated method stub
+		if (entry == null || entry.getKey() == null || entry.getValue() == null)
+			throw new IllegalArgumentException("Entry or its attributes cannot be null.");
 		
+		HeapEntry actualEntry = new HeapEntry(entry);
+		list.addLast(actualEntry);
+		upHeap(actualEntry);
 	}
 
 	@Override
 	public Entry<K, V> getPriority() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return list.getFirst();
 	}
 
 	@Override
 	public Entry<K, V> removePriority() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty())
+		{
+			return null;
+		}
+		else if (size() == 1)
+		{
+			return list.removeLast();
+		}
+		
+		swap(list.getFirst(), list.getLast());
+		HeapEntry temp = list.removeLast();
+		downHeap(list.getFirst());
+		return temp;
 	}
 
 	public int size() 
@@ -173,5 +140,88 @@ public class Heap <K extends Comparable<K>, V> extends PriorityQueue<K,V>
 	{
 		return list.isEmpty();
 	}
+	
+	private class HeapEntry extends Entry<K,V>
+	{
+		private int index;
 
+		public HeapEntry(K key, V value)
+		{
+			this(key, value, size());
+		}
+		
+		public HeapEntry(Entry<K,V> entry)
+		{
+			this(entry.getKey(), entry.getValue(), size());
+		}
+		
+		public HeapEntry(K key, V value, int index) 
+		{
+			super(key, value);
+			this.index = index;
+		}
+		
+		public int parentIndex()
+		{
+			return (index - 1)/2;
+		}
+		
+		public int leftIndex()
+		{
+			return index * 2 + 1;
+		}
+		
+		public int rightIndex()
+		{
+			return index * 2 + 2;
+		}
+		
+		public HeapEntry parent()
+		{
+			if (index == 0)
+				return null;
+			
+			return list.getAtIndex(parentIndex());
+		}
+		
+		public HeapEntry left()
+		{
+			return list.getAtIndex(leftIndex());
+		}
+		
+		public HeapEntry right()
+		{
+			return list.getAtIndex(rightIndex());
+		}
+		
+
+		public boolean hasParent()
+		{
+			return ! isOutOfBounds(parentIndex()) && index > 0;
+		}
+		
+		public boolean hasLeft()
+		{
+			return ! isOutOfBounds(leftIndex());
+		}
+		
+		public boolean hasRight()
+		{
+			return ! isOutOfBounds(rightIndex());
+		}
+		
+		public int numOfChildren()
+		{
+			int num = 0;
+			if (hasRight())
+			{
+				num++;
+			}
+			if (hasLeft())
+			{
+				num++;
+			}
+			return num;
+		}	
+	}
 }
