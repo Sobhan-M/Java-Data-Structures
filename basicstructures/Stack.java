@@ -103,4 +103,14 @@ public class Stack<T>
 	{
 		return list.toString();
 	}
+	
+	protected boolean isListEqual(Sequence<T> sequence)
+	{
+		return list.equals(sequence);
+	}
+	
+	protected boolean isListEqual(Stack<T> otherStack)
+	{
+		return list.equals(otherStack.list);
+	}
 }

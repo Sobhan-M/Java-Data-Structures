@@ -77,6 +77,7 @@ public class BoundedStack <T> extends Stack<T>
 		return size() == capacity;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public boolean equals(Object anotherObject)
 	{
 		if (anotherObject == null)
@@ -90,7 +91,7 @@ public class BoundedStack <T> extends Stack<T>
 		else
 		{
 			BoundedStack<T> anotherBoundedStack = (BoundedStack<T>) anotherObject;
-			return this.capacity == anotherBoundedStack.capacity; // Need to check if parents are equal as well.
+			return this.capacity == anotherBoundedStack.capacity && isListEqual(anotherBoundedStack);
 		}
 	}
 
