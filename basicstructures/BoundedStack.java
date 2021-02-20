@@ -53,6 +53,10 @@ public class BoundedStack <T> extends Stack<T>
 	public BoundedStack(Sequence<T> sequence, int aCapacity)
 	{
 		super(sequence);
+		if (aCapacity <= 0)
+		{
+			throw new IllegalArgumentException("Bounded stack capacity must be a positive integer.");
+		}
 		capacity = aCapacity;
 	}
 	

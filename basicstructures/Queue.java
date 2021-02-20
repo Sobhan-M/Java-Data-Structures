@@ -99,13 +99,23 @@ public class Queue<T>
 			return false;
 		else
 		{
-			Queue<T> anotherStack = (Queue<T>) anotherObject;
-			return this.list.equals(anotherStack.list);
+			Queue<T> anotherQueue = (Queue<T>) anotherObject;
+			return this.list.equals(anotherQueue.list);
 		}
 	}
 	
 	public String toString()
 	{
 		return list.toString();
+	}
+	
+	protected boolean isListEqual(Sequence<T> sequence)
+	{
+		return list.equals(sequence);
+	}
+	
+	protected boolean isListEqual(Queue<T> otherQueue)
+	{
+		return list.equals(otherQueue.list);
 	}
 }

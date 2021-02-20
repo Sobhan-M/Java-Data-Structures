@@ -10,7 +10,7 @@ to what I need.
 - Stack :heavy_check_mark:
 - BoundedStack :heavy_check_mark:
 - Queue :heavy_check_mark:
-- BoundedQueue :x:
+- BoundedQueue :heavy_check_mark:
 
 ## Trees
 - Array Based Binary Tree :x:
