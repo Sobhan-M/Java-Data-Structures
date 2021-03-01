@@ -56,4 +56,6 @@ abstract public class Graph<V,E>
     abstract public DoublyLinkedList<V> DepthFirstSearch(Graph<V,E> graph, V vertex);
 
     abstract public DoublyLinkedList<V> BreadthFirstSearch(Graph<V,E> graph, V vertex);
+    
+    abstract public boolean isDirected();
 }
