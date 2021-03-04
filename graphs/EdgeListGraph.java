@@ -67,12 +67,9 @@ public class EdgeListGraph<V,E> extends Graph<V,E>
 	}
 
 	@Override
-	public void insertVertex(V vertex) 
+	public void insertVertex(V vertex) throws UnsupportedOperationException
 	{
-		if (vertex == null)
-			throw new IllegalArgumentException("Cannot insert null vertex.");
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("Vertices are bound to edges, so they can't be added to an EdgeList");	
 	}
 
 	@Override
@@ -91,8 +88,17 @@ public class EdgeListGraph<V,E> extends Graph<V,E>
 		if (vertex == null)
 			throw new IllegalArgumentException("Cannot remove a null vertex.");
 		
-		// TODO Auto-generated method stub
-		return null;
+		int i = 0;
+		for (Group group : edgeList)
+		{
+			if (group.source == vertex || group.destination == vertex)
+			{
+				edgeList.removeAtIndex(i);
+			}
+			i++;
+		}
+
+		return vertex;
 	}
 
 	@Override
@@ -172,18 +178,6 @@ public class EdgeListGraph<V,E> extends Graph<V,E>
 		}
 		
 		return vertices;
-	}
-
-	@Override
-	public DoublyLinkedList<V> DepthFirstSearch(Graph<V, E> graph, V vertex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DoublyLinkedList<V> BreadthFirstSearch(Graph<V, E> graph, V vertex) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override

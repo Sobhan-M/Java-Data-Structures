@@ -29,7 +29,7 @@ to what I need.
 - Hash Map :heavy_check_mark:
 
 ## Graphs
-- Edge List Graph :x:
+- Edge List Graph :heavy_check_mark:
 - Adjacency List Graph :x:
 - Adjacency Map Graph :x:
 - Adjacency Matrix Graph :x:

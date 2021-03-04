@@ -53,9 +53,17 @@ abstract public class Graph<V,E>
      */
     abstract public DoublyLinkedList<V> endVertices(E edge);
 
-    abstract public DoublyLinkedList<V> DepthFirstSearch(Graph<V,E> graph, V vertex);
+    public DoublyLinkedList<V> DepthFirstSearch(Graph<V,E> graph, V vertex)
+    {
+    	// TODO Implement generic DFS.
+    	return null;
+    }
 
-    abstract public DoublyLinkedList<V> BreadthFirstSearch(Graph<V,E> graph, V vertex);
+    public DoublyLinkedList<V> BreadthFirstSearch(Graph<V,E> graph, V vertex)
+    {
+    	// TODO Implement generic DFS.
+    	return null;
+    }
     
     abstract public boolean isDirected();
 }
